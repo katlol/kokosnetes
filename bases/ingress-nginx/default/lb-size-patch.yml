@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ingress-nginx-controller
+  namespace: ingress-nginx
+  annotations:
+    load-balancer.hetzner.cloud/location: fsn1
+    load-balancer.hetzner.cloud/uses-proxyprotocol: "true"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ingress-nginx-controller
+  namespace: ingress-nginx
+data:
+  use-proxy-protocol: "true"
+  disable-ipv6-dns: "true"
+  proxy-real-ip-cidr: "127.0.0.0/16, 172.64.0.0/13"
+  use-forwarded-headers: "true"
+  compute-full-forwarded-for: "true"
+  proxy-buffer-size: "16k"
+  http-redirect-code: "302"
